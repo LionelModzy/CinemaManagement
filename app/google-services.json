@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "840986744950",
+    "firebase_url": "https://modzycinema-default-rtdb.firebaseio.com",
+    "project_id": "modzycinema",
+    "storage_bucket": "modzycinema.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840986744950:android:57771410c025526996a757",
+        "android_client_info": {
+          "package_name": "ai.movie.modzy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840986744950-l6u6fcmn9o647ar8l32b9qh2c6do3229.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXV9gHlUkONbh0BoLDEoVdNuiDD58d3iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840986744950-l6u6fcmn9o647ar8l32b9qh2c6do3229.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
