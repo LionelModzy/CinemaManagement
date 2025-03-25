@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'ai.movie.modzy'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "ai.movie.modzy"
         minSdk 26
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -44,5 +44,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth' // Firebase Authentication
     implementation 'com.google.firebase:firebase-firestore' // Firebase Firestore
     implementation 'com.google.firebase:firebase-database' // Firebase Realtime Database
-    
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }
