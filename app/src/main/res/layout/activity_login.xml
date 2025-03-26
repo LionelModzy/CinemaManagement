@@ -2,43 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_image"
+    android:backgroundTint="@color/design_default_color_error"
     android:gravity="center">
 
     <LinearLayout
-        android:layout_width="450dp"
-        android:layout_height="590dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
         android:gravity="center"
         android:background="@drawable/blur_bg"
         android:elevation="10dp"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:weightSum="10">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login Here"
-            android:textSize="40sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:hint="Email or Phone"
             android:inputType="textEmailAddress"
             android:padding="11dp"
             android:background="@drawable/input_bg"
             android:textColor="@android:color/white"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="10dp" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="11dp"
@@ -49,50 +53,52 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="Log In"
             android:background="@drawable/button_bg"
             android:textColor="@android:color/white"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login with a social media account"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             android:gravity="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="10dp">
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_facebook"
                 android:background="@drawable/social_icon_bg"
                 android:contentDescription="Facebook Login" />
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_twitter"
                 android:background="@drawable/social_icon_bg"
                 android:contentDescription="Twitter Login"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="15dp" />
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_instagram"
                 android:background="@drawable/social_icon_bg"
                 android:contentDescription="Instagram Login"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="15dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
