@@ -1,5 +1,6 @@
 package ai.movie.modzy.Model;
 
+import java.util.List;
 
 public class Movies {
     private int id;
@@ -9,12 +10,13 @@ public class Movies {
     private String posterUrl;
     private String description;
     private double rating;
+    private String releaseDate;
     private String trailerUrl;
 
     // Constructor rỗng (Firestore yêu cầu)
     public Movies() {}
 
-    public Movies(int id, String title, String genre, int duration, String posterUrl, String description, double rating, String trailerUrl) {
+    public Movies(int id, String title, String genre, int duration, String posterUrl, String description, double rating, String releaseDate, String trailerUrl) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -22,6 +24,7 @@ public class Movies {
         this.posterUrl = posterUrl;
         this.description = description;
         this.rating = rating;
+        this.releaseDate = releaseDate;
         this.trailerUrl = trailerUrl;
     }
 
@@ -33,6 +36,7 @@ public class Movies {
     public String getPosterUrl() { return posterUrl; }
     public String getDescription() { return description; }
     public double getRating() { return rating; }
+    public String getReleaseDate() { return releaseDate; }
     public String getTrailerUrl() { return trailerUrl; }
 
     // Setters
@@ -43,6 +47,6 @@ public class Movies {
     public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
     public void setDescription(String description) { this.description = description; }
     public void setRating(double rating) { this.rating = rating; }
+    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
     public void setTrailerUrl(String trailerUrl) { this.trailerUrl = trailerUrl; }
 }
-

@@ -1,6 +1,7 @@
 package ai.movie.modzy.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +16,15 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import ai.movie.modzy.Activity.Movie.MovieDetailActivity;
 import ai.movie.modzy.Model.Movies; // Import đúng model Movies
 import ai.movie.modzy.R; // Import đúng R
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private Context context;
-    private List<Movies> moviesList; // Đổi từ Movie -> Movies
+    private List<Movies> moviesList;
 
-    public MovieAdapter(Context context, List<Movies> moviesList) { // Đổi từ Movie -> Movies
+    public MovieAdapter(Context context, List<Movies> moviesList) {
         this.context = context;
         this.moviesList = moviesList;
     }
@@ -36,13 +38,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movies movies = moviesList.get(position); // Đổi từ Movie -> Movies
+        Movies movies = moviesList.get(position);
         holder.title.setText(movies.getTitle());
         holder.genre.setText(movies.getGenre());
+        holder.duration.setText(movies.getDuration() + " min");
         holder.rating.setText("Rating: " + movies.getRating());
 
-        // Dùng Glide để load ảnh từ URL
         Glide.with(context).load(movies.getPosterUrl()).into(holder.poster);
+
+        // Sự kiện click để mở màn hình chi tiết
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MovieDetailActivity.class);
+            intent.putExtra("movie_id", movies.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -51,7 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView title, genre, rating;
+        TextView title, genre, rating, duration;
         ImageView poster;
 
         public MovieViewHolder(View itemView) {
@@ -60,6 +69,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             genre = itemView.findViewById(R.id.movie_genre);
             rating = itemView.findViewById(R.id.movie_rating);
             poster = itemView.findViewById(R.id.movie_poster);
+            duration = itemView.findViewById(R.id.movie_duration);
         }
     }
 }
+
