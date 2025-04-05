@@ -12,11 +12,15 @@ public class Movies {
     private double rating;
     private String releaseDate;
     private String trailerUrl;
-
+    private List<String> authors;  // Đạo diễn
+    private List<String> actors;    // Diễn viên chính
+    private String country;
+    private int tmdbId;
     // Constructor rỗng (Firestore yêu cầu)
     public Movies() {}
 
-    public Movies(int id, String title, String genre, int duration, String posterUrl, String description, double rating, String releaseDate, String trailerUrl) {
+    public Movies(int id, String title, String genre, int duration, String posterUrl, String description, double rating, String releaseDate, String trailerUrl,
+                  List<String> authors, List<String> actors, String country,int tmdbId) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -26,6 +30,10 @@ public class Movies {
         this.rating = rating;
         this.releaseDate = releaseDate;
         this.trailerUrl = trailerUrl;
+        this.authors = authors;
+        this.actors = actors;
+        this.country = country;
+        this.tmdbId = tmdbId;
     }
 
     // Getters
@@ -38,6 +46,17 @@ public class Movies {
     public double getRating() { return rating; }
     public String getReleaseDate() { return releaseDate; }
     public String getTrailerUrl() { return trailerUrl; }
+    public List<String> getAuthors() { return authors; }
+    public String getCountry() { return country; }
+    public List<String> getActors() { return actors; }
+
+    public int getTmdbId() {
+        return tmdbId;
+    }
+
+    public void setTmdbId(int tmdbId) {
+        this.tmdbId = tmdbId;
+    }
 
     // Setters
     public void setId(int id) { this.id = id; }
@@ -49,4 +68,7 @@ public class Movies {
     public void setRating(double rating) { this.rating = rating; }
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
     public void setTrailerUrl(String trailerUrl) { this.trailerUrl = trailerUrl; }
+    public void setAuthors(List<String> authors) { this.authors = authors;}
+    public void setCountry(String country) { this.country = country; }
+    public void setActors(List<String> actors) { this.actors = actors; }
 }

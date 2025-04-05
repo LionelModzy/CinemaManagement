@@ -1,9 +1,11 @@
 package ai.movie.modzy.Activity.Movie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import ai.movie.modzy.Activity.Booking.BookingMovieActivity;
 import ai.movie.modzy.Model.Movies;
 import ai.movie.modzy.R;
 
@@ -20,12 +23,13 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView title, genre, duration, rating, description, releaseDate;
     private WebView youtubeWebView;
     private FirebaseFirestore db;
-
+    private TextView authors, actors, country;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        // Ánh xạ view
         // Ánh xạ view
         poster = findViewById(R.id.detail_poster);
         title = findViewById(R.id.detail_title);
@@ -35,31 +39,54 @@ public class MovieDetailActivity extends AppCompatActivity {
         description = findViewById(R.id.detail_description);
         releaseDate = findViewById(R.id.detail_release_date);
         youtubeWebView = findViewById(R.id.youtube_webview);
+        authors = findViewById(R.id.detail_authors);
+        actors = findViewById(R.id.detail_actors);
+        country = findViewById(R.id.detail_country);
 
         db = FirebaseFirestore.getInstance();
 
         int movieId = getIntent().getIntExtra("movie_id", -1);
+
+
         if (movieId != -1) {
             loadMovieDetails(movieId);
         }
+
+//        Button bookTicketButton = findViewById(R.id.btn_book_ticket);
+//        bookTicketButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(MovieDetailActivity.this, BookingMovieActivity.class);
+//            intent.putExtra("movie_id", movies.getId());
+//            startActivity(intent);
+//        });
+        Button bookTicketButton = findViewById(R.id.btn_book_ticket);
+        bookTicketButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MovieDetailActivity.this, BookingMovieActivity.class);
+            intent.putExtra("movie_id", movieId);  // Truyền movieId để đặt vé
+            startActivity(intent);
+        });
+
     }
 
     private void loadMovieDetails(int movieId) {
         db.collection("movies").document(String.valueOf(movieId)).get()
+
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         Movies movie = documentSnapshot.toObject(Movies.class);
                         if (movie != null) {
                             title.setText(movie.getTitle());
                             genre.setText(movie.getGenre());
-                            duration.setText(movie.getDuration() + " min");
-                            rating.setText("Rating: " + movie.getRating());
+                            duration.setText(movie.getDuration() + " phút");
+                            rating.setText("Đánh giá: " + movie.getRating() + " ★");
                             description.setText(movie.getDescription());
-                            releaseDate.setText("Release Date: " + movie.getReleaseDate());
+                            releaseDate.setText(movie.getReleaseDate());
+                            country.setText(movie.getCountry());
+                            authors.setText("Đạo diễn: " + String.join(", ", movie.getAuthors()));
+                            actors.setText("Diễn viên: " + String.join(", ", movie.getActors()));
 
                             Glide.with(this).load(movie.getPosterUrl()).into(poster);
 
-                            // Load trailer
+                            // Load trailer YouTube
                             String trailerUrl = movie.getTrailerUrl();
                             if (trailerUrl != null && !trailerUrl.isEmpty()) {
                                 loadYouTubeVideo(trailerUrl);
@@ -68,6 +95,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void loadYouTubeVideo(String youtubeUrl) {
         String videoId = extractYouTubeId(youtubeUrl);

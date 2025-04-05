@@ -1,0 +1,27 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="16dp">
+
+        <EditText android:id="@+id/etTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tên phim"/>
+        <EditText android:id="@+id/etGenre" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Thể loại"/>
+        <EditText android:id="@+id/etDuration" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Thời lượng (phút)" android:inputType="number"/>
+        <EditText android:id="@+id/etPosterUrl" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="URL ảnh poster"/>
+        <EditText android:id="@+id/etDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Mô tả"/>
+        <EditText android:id="@+id/etRating" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Đánh giá" android:inputType="numberDecimal"/>
+        <EditText android:id="@+id/etReleaseDate" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ngày phát hành (YYYY-MM-DD)"/>
+        <EditText android:id="@+id/etTrailerUrl" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="URL trailer YouTube"/>
+        <EditText android:id="@+id/etAuthors" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Đạo diễn (cách nhau bởi dấu phẩy)"/>
+        <EditText android:id="@+id/etActors" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Diễn viên chính (cách nhau bởi dấu phẩy)"/>
+        <EditText android:id="@+id/etCountry" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Quốc gia"/>
+        <EditText android:id="@+id/etTmdbId" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="TMDb ID" android:inputType="number"/>
+
+        <Button android:id="@+id/btnSave" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Lưu phim"/>
+    </LinearLayout>
+</ScrollView>

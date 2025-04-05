@@ -25,5 +25,8 @@ public interface MovieApiService {
             @Query("api_key") String apiKey,
             @Query("language") String language
     );
+    @GET("movie/{movie_id}/credits")
+    Call<MovieCreditsResponse> getMovieCredits(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
+
 
 }
