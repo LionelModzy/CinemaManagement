@@ -154,21 +154,16 @@ public class AddMovieActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Toast.makeText(this, "Lỗi lấy danh sách phim!", Toast.LENGTH_SHORT).show());
     }
 
-
-
-
-
     private void updateMovie(String movieId, Map<String, Object> movieData) {
-        // Cập nhật trực tiếp các giá trị từ movieData
         db.collection("movies").document(movieId).update(movieData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Cập nhật phim thành công!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);  // <-- thêm dòng này
                     finish();
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Lỗi cập nhật phim!", Toast.LENGTH_SHORT).show());
     }
-
-
 
 }
 

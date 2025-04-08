@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -18,56 +19,72 @@ import com.google.firebase.firestore.Query;
 import ai.movie.modzy.MainActivity;
 import ai.movie.modzy.R;
 
-class Login_Activity extends AppCompatActivity {
-    private EditText edtIdLogin;
-    private Button btnLogin;
-    private FirebaseFirestore db;
+public class Login_Activity extends AppCompatActivity {
+    EditText emailEditText, passwordEditText;
+    Button loginButton;
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        edtIdLogin = findViewById(R.id.login);
-        btnLogin = findViewById(R.id.btn_login);
+        emailEditText = findViewById(R.id.log_etEmail);
+        passwordEditText = findViewById(R.id.log_etPassword);
+        loginButton = findViewById(R.id.btnLogin);
+        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        TextView tvGoToRegister = findViewById(R.id.tvGoToRegister);
+        TextView tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        loginButton.setOnClickListener(v -> loginUser());
+        tvGoToRegister.setOnClickListener(v -> {
+            startActivity(new Intent(Login_Activity.this, RegisterActivity.class));
+        });
 
-        btnLogin.setOnClickListener(view -> {
-            String idlogin = edtIdLogin.getText().toString().trim();
-            if (!idlogin.isEmpty()) {
-                loginWithIdLogin(idlogin);
+        tvForgotPassword.setOnClickListener(v -> {
+            startActivity(new Intent(Login_Activity.this, ForgotPasswordActivity.class));
+        });
+    }
+    private void loginUser() {
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập đầy đủ email và mật khẩu", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String uid = mAuth.getCurrentUser().getUid();
+                getUserRoleByUid(uid); // dùng uid luôn, tối ưu hơn
             } else {
-                Toast.makeText(this, "Vui lòng nhập ID Login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void loginWithIdLogin(String idlogin) {
-        // Tìm user theo idlogin
-        db.collection("users")
-                .whereEqualTo("idlogin", idlogin)
-                .limit(1)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                        String role = document.getString("role");
-                        navigateToHome(role);
-                    } else {
-                        Toast.makeText(Login_Activity.this, "ID Login không hợp lệ", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+    private void getUserRoleByUid(String uid) {
+        db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String role = documentSnapshot.getString("role");
+                navigateToHome(role);
+            } else {
+                Toast.makeText(Login_Activity.this, "Tài khoản không tồn tại trong hệ thống", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(Login_Activity.this, "Lỗi truy cập dữ liệu người dùng", Toast.LENGTH_SHORT).show();
+        });
     }
 
+
     private void navigateToHome(String role) {
-        if ("manager".equals(role)) {
-            startActivity(new Intent(Login_Activity.this, MainActivity.class));
-        }
-//        } else if ("employee".equals(role)) {
-//            startActivity(new Intent(LoginActivity.this, EmployeeActivity.class));
-//        } else {
-//            startActivity(new Intent(LoginActivity.this, .class));
-//        }
+        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+        intent.putExtra("role", role);  // Truyền vai trò người dùng
+        startActivity(intent);
         finish();
     }
+
 }

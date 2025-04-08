@@ -1,0 +1,21 @@
+<!-- res/menu/drawer_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_movie"
+            android:title="Quản lý phim"
+            android:icon="@drawable/ic_movie" />
+        <item
+            android:id="@+id/nav_schedules"
+            android:title="Suất chiếu"
+            android:icon="@drawable/ic_schedule" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:title="Thống kê"
+            android:icon="@drawable/ic_bar_chart" />
+    </group>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Đăng xuất"
+        android:icon="@drawable/ic_logout" />
+</menu>

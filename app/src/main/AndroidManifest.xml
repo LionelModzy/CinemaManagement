@@ -15,6 +15,27 @@
         android:theme="@style/Theme.CinemaManagement"
         tools:targetApi="31">
         <activity
+            android:name=".Fragment.ProfileFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Fragment.TicketFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Fragment.ScheduleFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Fragment.MovieFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Fragment.HomeFragment"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Account.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Account.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Movie.AddMovieActivity"
             android:exported="false" />
         <activity

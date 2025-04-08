@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 import ai.movie.modzy.Activity.Movie.AddMovieActivity;
 import ai.movie.modzy.Activity.Movie.MovieDetailActivity;
+import ai.movie.modzy.MainActivity;
 import ai.movie.modzy.Model.Movies; // Import đúng model Movies
 import ai.movie.modzy.R; // Import đúng R
 
@@ -28,10 +30,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private Context context;
     private List<Movies> moviesList;
     private OnMovieClickListener onMovieClickListener;
-
-    public MovieAdapter(Context context, List<Movies> moviesList) {
+    private String role;
+    private ActivityResultLauncher<Intent> editMovieLauncher;
+    public MovieAdapter(Context context, List<Movies> moviesList, String role,  ActivityResultLauncher<Intent> launcher) {
         this.context = context;
         this.moviesList = moviesList;
+        this.role = role;
+        this.editMovieLauncher = launcher;
     }
 
     @NonNull
@@ -57,13 +62,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             intent.putExtra("movie_id", movie.getId());
             context.startActivity(intent);
         });
+        int visibility = "user".equals(role) ? View.GONE : View.VISIBLE;
+        holder.editButton.setVisibility(visibility);
+        holder.deleteButton.setVisibility(visibility);
+//if ("user".equals(role)) {
+//    holder.editButton.setVisibility(View.GONE);
+//    holder.deleteButton.setVisibility(View.GONE);
+//} else {
+//    holder.editButton.setVisibility(View.VISIBLE);
+//    holder.deleteButton.setVisibility(View.VISIBLE);
+//}
 
         // Nhấn vào "Sửa" để mở AddMovieActivity với movie_id
         holder.editButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, AddMovieActivity.class);
-            intent.putExtra("movie_id", movie.getId()); // Truyền ID phim để chỉnh sửa
-            context.startActivity(intent);
+            intent.putExtra("movie_id", String.valueOf(movie.getId()));
+            editMovieLauncher.launch(intent); // dùng launcher thay vì startActivityForResult
         });
+
 
         // Nhấn vào "Xóa" để xóa khỏi Firestore
 //        holder.deleteButton.setOnClickListener(v -> deleteMovie(movie.getId(), position));  // Corrected line
