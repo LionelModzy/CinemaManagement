@@ -2,6 +2,7 @@ package ai.movie.modzy;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
@@ -192,6 +193,15 @@ public class MainActivity extends AppCompatActivity {
         // Mặc định load Fragment đầu tiên
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment(), "Trang chủ");
+        }
+        // Lấy role từ SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String role = prefs.getString("user_role", "user"); // mặc định là user
+
+        // Ẩn menu nếu không phải admin
+        if (!role.equals("admin")) {
+            navigationView.getMenu().findItem(R.id.nav_schedules).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_statistics).setVisible(false); // nếu cần
         }
     }
 

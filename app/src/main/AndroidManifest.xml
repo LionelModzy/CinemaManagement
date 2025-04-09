@@ -15,6 +15,12 @@
         android:theme="@style/Theme.CinemaManagement"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.Booking.AddShowtimeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Booking.ShowtimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Fragment.ProfileFragment"
             android:exported="false" />
         <activity

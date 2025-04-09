@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import ai.movie.modzy.Activity.Booking.BookingMovieActivity;
+import ai.movie.modzy.Activity.Booking.ShowtimeActivity;
 import ai.movie.modzy.Model.Movies;
 import ai.movie.modzy.R;
 
@@ -24,6 +25,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private WebView youtubeWebView;
     private FirebaseFirestore db;
     private TextView authors, actors, country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        });
         Button bookTicketButton = findViewById(R.id.btn_book_ticket);
         bookTicketButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MovieDetailActivity.this, BookingMovieActivity.class);
+            Intent intent = new Intent(MovieDetailActivity.this, ShowtimeActivity.class);
             intent.putExtra("movie_id", movieId);  // Truyền movieId để đặt vé
             startActivity(intent);
         });

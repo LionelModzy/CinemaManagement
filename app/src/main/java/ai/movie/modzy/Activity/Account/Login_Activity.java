@@ -1,6 +1,7 @@
 package ai.movie.modzy.Activity.Account;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,7 @@ public class Login_Activity extends AppCompatActivity {
         tvForgotPassword.setOnClickListener(v -> {
             startActivity(new Intent(Login_Activity.this, ForgotPasswordActivity.class));
         });
+
     }
     private void loginUser() {
         String email = emailEditText.getText().toString().trim();
@@ -70,6 +72,11 @@ public class Login_Activity extends AppCompatActivity {
         db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String role = documentSnapshot.getString("role");
+
+                // Lưu role vào SharedPreferences
+                SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                prefs.edit().putString("user_role", role).apply();
+
                 navigateToHome(role);
             } else {
                 Toast.makeText(Login_Activity.this, "Tài khoản không tồn tại trong hệ thống", Toast.LENGTH_SHORT).show();
@@ -78,6 +85,7 @@ public class Login_Activity extends AppCompatActivity {
             Toast.makeText(Login_Activity.this, "Lỗi truy cập dữ liệu người dùng", Toast.LENGTH_SHORT).show();
         });
     }
+
 
 
     private void navigateToHome(String role) {

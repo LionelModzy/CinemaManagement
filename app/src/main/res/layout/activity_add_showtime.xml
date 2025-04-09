@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Activity.Booking.AddShowtimeActivity">
+    <!-- res/layout/activity_add_showtime.xml -->
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText android:id="@+id/edt_movie_id"
+                android:hint="ID phim" android:inputType="number"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/edt_cinema"
+                android:hint="Tên rạp" android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/edt_room"
+                android:hint="Phòng chiếu" android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/edt_price"
+                android:hint="Giá vé" android:inputType="number"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <EditText android:id="@+id/edt_available_seats"
+                android:hint="Số ghế trống" android:inputType="number"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Date + Time -->
+            <TextView android:id="@+id/tv_datetime"
+                android:text="Chọn ngày giờ" android:padding="12dp"
+                android:layout_marginTop="12dp" android:background="#DDD"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <Button android:id="@+id/btn_save"
+                android:text="Lưu suất chiếu" android:layout_marginTop="16dp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
