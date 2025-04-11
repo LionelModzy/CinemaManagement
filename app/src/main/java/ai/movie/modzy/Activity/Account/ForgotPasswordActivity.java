@@ -1,8 +1,10 @@
 package ai.movie.modzy.Activity.Account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,11 +26,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
+        TextView tvBackToLogin = findViewById(R.id.tvBackToLogin);
         edtEmail = findViewById(R.id.for_etEmail);
         btnReset = findViewById(R.id.for_btnReset);
         mAuth = FirebaseAuth.getInstance();
-
+        tvBackToLogin.setOnClickListener(v -> {
+            startActivity(new Intent(ForgotPasswordActivity.this, Login_Activity.class));
+        });
         btnReset.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             if (email.isEmpty()) {

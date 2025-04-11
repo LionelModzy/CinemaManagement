@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CinemaManagement"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.Booking.ChooseShowtimeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Booking.AddShowtimeActivity"
             android:exported="false" />
         <activity

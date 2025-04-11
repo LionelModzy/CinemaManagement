@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 import ai.movie.modzy.Activity.Movie.AddMovieActivity;
 import ai.movie.modzy.Adapter.MovieAdapter;
+import ai.movie.modzy.Api.SaveNewMovieFromApiToFirestore;
 import ai.movie.modzy.Model.Movies;
 import ai.movie.modzy.R;
 
@@ -33,6 +35,7 @@ public class MovieFragment extends Fragment {
     private FirebaseFirestore db;
     private Button btnAddMovie;
     private String role;
+    private Button btnLoadFromApi;
 
     // Khai báo launcher để nhận kết quả từ AddMovieActivity
     private ActivityResultLauncher<Intent> addMovieLauncher;
@@ -62,6 +65,7 @@ public class MovieFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         btnAddMovie = view.findViewById(R.id.btnAddMovie);
+        btnLoadFromApi = view.findViewById(R.id.btnLoadFromApi);
 
         movieList = new ArrayList<>();
         role = getArguments() != null ? getArguments().getString("role", "user") : "user";
@@ -70,8 +74,12 @@ public class MovieFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        if ("user".equals(role)) {
-            btnAddMovie.setVisibility(android.view.View.GONE);
+        if ("admin".equals(role)) {
+            btnAddMovie.setVisibility(View.VISIBLE);
+            btnLoadFromApi.setVisibility(View.VISIBLE);
+        } else {
+            btnAddMovie.setVisibility(View.GONE);
+            btnLoadFromApi.setVisibility(View.GONE);
         }
 
         db = FirebaseFirestore.getInstance();
@@ -82,7 +90,11 @@ public class MovieFragment extends Fragment {
             Intent intent = new Intent(getActivity(), AddMovieActivity.class);
             addMovieLauncher.launch(intent);
         });
-
+// Bấm nút "Load phim từ API"
+        btnLoadFromApi.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SaveNewMovieFromApiToFirestore.class);
+            startActivity(intent);
+        });
 //        // Khi click vào phim để sửa
 //        adapter.setOnMovieClickListener(movie -> {
 //            Intent intent = new Intent(getActivity(), AddMovieActivity.class);

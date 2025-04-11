@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
     <color name="colorPrimary">#0D5994</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="lavender">#8692f7</color>
+    <color name="orange_soft">#FFA726</color>
+    <color name="green_mint">#4CAF50</color>
+    <color name="red_soft">#F44336</color>
+    <color name="pink_pastel">#F48FB1</color>
+    <color name="gray_light">#BDBDBD</color>
+    <color name="gray_dark">#424242</color>
+    <color name="yellow_warm">#FFEB3B</color>
+    <color name="indigo_deep">#3F51B5</color>
+    <color name="blue_dark">#08306B</color> <!-- Very Dark Blue -->
+    <color name="navy_blue">#001F3F</color> <!-- Navy Blue -->
+    <color name="midnight_blue">#191970</color> <!-- Midnight Blue -->
+    <color name="steel_blue">#4682B4</color> <!-- Steel Blue -->
+    <color name="indigo">#3F51B5</color> <!-- Indigo (blue-violet) -->
+
+    <color name="dark_gray">#212121</color> <!-- Very Dark Gray -->
+    <color name="charcoal">#2C3E50</color> <!-- Charcoal Gray -->
+    <color name="gunmetal">#2a3439</color> <!-- Gunmetal -->
+    <color name="slate_gray">#708090</color> <!-- Slate Gray -->
+    <color name="dark_slate_blue">#483D8B</color> <!-- Dark Slate Blue -->
+
+    <color name="soft_black">#121212</color> <!-- Common for dark mode -->
+    <color name="dark_background">#1E1E1E</color> <!-- For dark theme background -->
+    <color name="background_dark">#121212</color> <!-- Nền tổng thể -->
+    <color name="card_dark">#1E1E1E</color>        <!-- Card hoặc khung mờ -->
+
+    <!-- Màu chính (Primary - xanh dương) -->
+    <color name="blue_primary">#2196F3</color>     <!-- Màu chủ đạo (nút, accent) -->
+    <color name="blue_secondary">#1976D2</color>   <!-- Nút thường -->
+    <color name="blue_light">#64B5F6</color>       <!-- Text liên kết / nhẹ -->
+
+    <!-- Màu nhấn -->
+    <color name="amber">#FFC107</color>            <!-- Nút nhấn / cảnh báo nhẹ -->
+    <color name="cyan_bright">#00BCD4</color>      <!-- Gợi ý input -->
+    <color name="green_success">#4CAF50</color>    <!-- Thành công -->
+    <color name="red_error">#F44336</color>        <!-- Lỗi -->
+
+    <!-- Màu chữ -->
+    <color name="text_primary">#FFFFFF</color>     <!-- Chữ chính -->
+    <color name="text_secondary">#B0BEC5</color>   <!-- Chữ phụ -->
+    <color name="text_hint">#90A4AE</color>        <!-- Hint -->
+
+    <!-- Viền, stroke -->
+    <color name="blue_sky">#03A9F4</color>         <!-- Viền khi nhấn -->
+    <color name="purple_200">#BB86FC</color>       <!-- Viền thường -->
+
+    <!-- Trắng & Đen -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

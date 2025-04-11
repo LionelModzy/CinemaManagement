@@ -1,23 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3134DDC"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_1"
     android:gravity="center">
 
     <LinearLayout
-        android:layout_width="317dp"
+        android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:background="@drawable/blur_bg"
         android:elevation="10dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="180dp"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:layout_gravity="center"
+            android:text="Đăng ký"
             android:textColor="@android:color/white"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -26,10 +28,11 @@
             android:id="@+id/reg_etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/input_bg"
-            android:hint="Name"
-            android:padding="11dp"
+            android:hint="Nhập họ tên"
+            android:textColorHint="@color/cyan_bright"
+            android:padding="17dp"
             android:textColor="@android:color/white" />
 
         <EditText
@@ -38,29 +41,60 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/input_bg"
-            android:hint="Email"
+            android:hint="Nhập Email"
+            android:textColorHint="@color/cyan_bright"
             android:inputType="textEmailAddress"
-            android:padding="11dp"
+            android:padding="17dp"
             android:textColor="@android:color/white" />
 
-        <EditText
-            android:id="@+id/reg_etPassword"
+        <!-- Mật khẩu có nút hiện/ẩn -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_bg"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="11dp"
-            android:textColor="@android:color/white" />
+            android:layout_marginTop="10dp">
 
-        <Button
+            <EditText
+                android:id="@+id/reg_etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_bg"
+                android:hint="Nhập mật khẩu"
+                android:textColorHint="@color/cyan_bright"
+                android:inputType="textPassword"
+                android:padding="17dp"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/ivTogglePassword"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:tint="@android:color/white"
+                android:contentDescription="Toggle Password Visibility"
+                android:src="@drawable/ic_eye_closed_black" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Đăng ký"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:background="@drawable/button_bg" />
+
+        <TextView
+            android:id="@+id/tvGoToLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_bg"
-            android:text="Register"
-            android:textColor="@android:color/white" />
+            android:gravity="center"
+            android:text="Đã có tài khoản? Đăng nhập"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

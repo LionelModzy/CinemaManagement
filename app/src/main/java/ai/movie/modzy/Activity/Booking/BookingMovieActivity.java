@@ -32,7 +32,7 @@ public class BookingMovieActivity extends AppCompatActivity {
     private Button btnConfirm;
     private FirebaseFirestore db;
 
-    private int showtimeId;
+    private String showtimeId;
     private int seatPrice = 85000; // giá mặc định (có thể lấy từ Firestore)
     private List<String> selectedSeats = new ArrayList<>();
     private List<String> bookedSeats = new ArrayList<>();
@@ -47,16 +47,17 @@ public class BookingMovieActivity extends AppCompatActivity {
         btnConfirm = findViewById(R.id.btn_confirm_booking);
         db = FirebaseFirestore.getInstance();
 
-        showtimeId = getIntent().getIntExtra("showtime_id", -1);
+        showtimeId = getIntent().getStringExtra("showtime_id");
 
-        if (showtimeId != -1) {
+        if (showtimeId != null) {
             loadBookedSeats(showtimeId);
         }
+
 
         btnConfirm.setOnClickListener(v -> confirmBooking());
     }
 
-    private void loadBookedSeats(int showtimeId) {
+    private void loadBookedSeats(String showtimeId) {
         db.collection("showtimes").document(String.valueOf(showtimeId)).get()
                 .addOnSuccessListener(snapshot -> {
                     if (snapshot.exists()) {
@@ -100,10 +101,15 @@ public class BookingMovieActivity extends AppCompatActivity {
         }
     }
 
+    private String formatCurrency(int amount) {
+        return String.format("%,d", amount).replace(',', '.') + "đ";
+    }
+
     private void updateTotalPrice() {
         int total = seatPrice * selectedSeats.size();
-        tvTotalPrice.setText("Tổng tiền: " + total + "đ");
+        tvTotalPrice.setText("Tổng tiền: " + formatCurrency(total));
     }
+
 
     private void confirmBooking() {
         if (selectedSeats.isEmpty()) {
@@ -111,25 +117,46 @@ public class BookingMovieActivity extends AppCompatActivity {
             return;
         }
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // cần login trước
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // đảm bảo đã login
+
+        int totalSeats = selectedSeats.size();
+        int totalPrice = seatPrice * totalSeats;
 
         Map<String, Object> booking = new HashMap<>();
         booking.put("userId", userId);
         booking.put("showtimeId", showtimeId);
-        booking.put("seats", TextUtils.join(", ", selectedSeats));
-        booking.put("totalPrice", seatPrice * selectedSeats.size());
+        booking.put("seats", selectedSeats);
+        booking.put("totalPrice", totalPrice);
         booking.put("paymentStatus", "pending");
-        booking.put("paymentMethod", "momo"); // hoặc chọn
+        booking.put("paymentMethod", "momo");
         booking.put("bookingTime", Timestamp.now());
 
         db.collection("bookings").add(booking)
                 .addOnSuccessListener(doc -> {
-                    db.collection("showtimes").document(String.valueOf(showtimeId))
-                            .update("bookedSeats", FieldValue.arrayUnion(selectedSeats.toArray()))
-                            .addOnSuccessListener(unused -> {
-                                Toast.makeText(this, "Đặt vé thành công!", Toast.LENGTH_SHORT).show();
-                                finish();
+                    // Lấy document showtime để cập nhật availableSeats
+                    db.collection("showtimes").document(showtimeId).get()
+                            .addOnSuccessListener(snapshot -> {
+                                if (snapshot.exists()) {
+                                    Long currentAvailableSeats = snapshot.getLong("availableSeats");
+                                    if (currentAvailableSeats != null) {
+                                        int updatedSeats = currentAvailableSeats.intValue() - totalSeats;
+
+                                        if (updatedSeats < 0) updatedSeats = 0;
+
+                                        Map<String, Object> updates = new HashMap<>();
+                                        updates.put("bookedSeats", FieldValue.arrayUnion(selectedSeats.toArray()));
+                                        updates.put("availableSeats", updatedSeats);
+
+                                        db.collection("showtimes").document(showtimeId)
+                                                .update(updates)
+                                                .addOnSuccessListener(unused -> {
+                                                    Toast.makeText(this, "Đặt vé thành công!", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                });
+                                    }
+                                }
                             });
                 });
     }
+
 }

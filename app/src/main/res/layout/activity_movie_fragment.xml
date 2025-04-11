@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
+    <Button
+        android:id="@+id/btnLoadFromApi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Load phim từ TMDb"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"/> <!-- Mặc định ẩn -->
 
     <Button
         android:id="@+id/btnAddMovie"

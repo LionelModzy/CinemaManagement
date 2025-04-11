@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <!-- Rạp -->
+        <TextView android:text="Chọn rạp" android:textStyle="bold" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <Spinner android:id="@+id/spinner_cinema" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <!-- Ngày chiếu -->
+        <TextView android:text="Chọn ngày" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="16dp" android:textStyle="bold"/>
+        <Spinner android:id="@+id/spinner_date" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <!-- Giờ chiếu -->
+        <TextView android:text="Chọn giờ" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginTop="16dp" android:textStyle="bold"/>
+        <Spinner android:id="@+id/spinner_time" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <!-- Nút đặt vé -->
+        <Button android:id="@+id/btn_continue"
+            android:text="Tiếp tục"
+            android:layout_marginTop="24dp"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+

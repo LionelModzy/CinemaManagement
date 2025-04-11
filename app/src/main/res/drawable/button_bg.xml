@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Trạng thái khi nhấn -->
     <item android:state_pressed="true">
-        <shape>
-            <solid android:color="#629677"/>
-            <corners android:radius="5dp"/>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_light"/> <!-- Màu nhấn nhẹ -->
+            <corners android:radius="30dp" />
+            <stroke android:width="2dp" android:color="@color/blue_secondary" />
         </shape>
     </item>
+
+    <!-- Trạng thái mặc định -->
     <item>
-        <shape>
-            <solid android:color="#36000000"/>
-            <corners android:radius="5dp"/>
-            <stroke android:width="2dp" android:color="#38363654"/>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_primary" /> <!-- Màu chủ đạo -->
+            <corners android:radius="30dp" />
+            <stroke android:width="2dp" android:color="@color/purple_200" />
         </shape>
     </item>
+
 </selector>
