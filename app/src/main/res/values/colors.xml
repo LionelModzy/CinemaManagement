@@ -55,4 +55,8 @@
     <!-- Trắng & Đen -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="material_dynamic_primary90">#FF6200EE</color>
+
+    <color name="your_menu_background_color">#FF6200EE</color>
+    <color name="your_menu_text_color">#FFFFFFFF</color>
 </resources>

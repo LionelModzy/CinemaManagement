@@ -125,6 +125,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .addOnFailureListener(e -> Toast.makeText(context, "Lỗi xóa phim", Toast.LENGTH_SHORT).show());
     }
 
+
     public interface OnMovieClickListener {
         void onMovieClick(Movies movie);
     }

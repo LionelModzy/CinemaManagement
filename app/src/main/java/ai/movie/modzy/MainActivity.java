@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -31,6 +32,7 @@ import java.util.List;
 import ai.movie.modzy.Activity.Account.Login_Activity;
 import ai.movie.modzy.Activity.Movie.AddMovieActivity;
 import ai.movie.modzy.Adapter.MovieAdapter;
+import ai.movie.modzy.Fragment.FoodFragment;
 import ai.movie.modzy.Fragment.HomeFragment;
 import ai.movie.modzy.Fragment.MovieFragment;
 import ai.movie.modzy.Fragment.ProfileFragment;
@@ -151,14 +153,23 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("role", role);
                 movieFragment.setArguments(bundle);
-                loadFragment(movieFragment, "Phim");
+                loadFragment(movieFragment, " Quản lí phim");
 
 
         } else if (itemId == R.id.nav_schedules) {
-                loadFragment(new ScheduleFragment(), "Suất chiếu");
+                loadFragment(new ScheduleFragment(), "Quản lí suất chiếu");
+
             } else if (itemId == R.id.nav_statistics) {
                 loadFragment(new StatisticFragment(), "Thống kê");
-            } else if (itemId == R.id.nav_logout) {
+            } else if (itemId == R.id.nav_foods) {
+                if (role.equals("admin")) {
+                    loadFragment(new FoodFragment(), "Quản lý bắp nước");
+                } else {
+                    Toast.makeText(this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                }
+
+
+        } else if (itemId == R.id.nav_logout) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, Login_Activity.class));
                 finish();
@@ -200,9 +211,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Ẩn menu nếu không phải admin
         if (!role.equals("admin")) {
+            navigationView.getMenu().findItem(R.id.nav_movie).setVisible(false);
+
             navigationView.getMenu().findItem(R.id.nav_schedules).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_foods).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_statistics).setVisible(false); // nếu cần
         }
+        // Nếu là admin thì ẩn tab "Phim" ở bottom nav
+        if (role.equals("admin")) {
+            bottomNavigationView.getMenu().findItem(R.id.nav_movies).setVisible(false);
+        }
+
     }
 
     private void loadFragment(Fragment fragment, String title) {

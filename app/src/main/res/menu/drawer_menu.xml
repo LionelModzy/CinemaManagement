@@ -7,7 +7,11 @@
             android:icon="@drawable/ic_movie" />
         <item
             android:id="@+id/nav_schedules"
-            android:title="Suất chiếu"
+            android:title="Quản lý suất chiếu"
+            android:icon="@drawable/ic_schedule" />
+        <item
+            android:id="@+id/nav_foods"
+            android:title="Quản lý bắp nước"
             android:icon="@drawable/ic_schedule" />
         <item
             android:id="@+id/nav_statistics"

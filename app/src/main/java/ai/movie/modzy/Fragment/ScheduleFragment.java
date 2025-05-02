@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,9 +36,9 @@ public class ScheduleFragment extends Fragment {
     private ShowtimeAdapter adapter;
     private List<Showtime> showtimeList;
     private FirebaseFirestore db;
-    private Button btnAddShowtime;
+//    private Button btnAddShowtime;
     private String role = "user"; // mặc định
-
+private FloatingActionButton btnAddShowtime;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_schedule_frament, container, false);
@@ -79,5 +80,10 @@ public class ScheduleFragment extends Fragment {
             }
             adapter.notifyDataSetChanged();
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadShowtimesFromFirestore();
     }
 }

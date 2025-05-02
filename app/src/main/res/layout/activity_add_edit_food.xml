@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Ảnh món ăn -->
+        <ImageView
+            android:id="@+id/imgSelectedFood"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_movie"
+            android:contentDescription="Food Image"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Nút chọn ảnh -->
+        <Button
+            android:id="@+id/btnChooseImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn ảnh từ thư viện" />
+
+        <!-- Tên món -->
+        <EditText
+            android:id="@+id/edtFoodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên món"
+            android:inputType="textCapWords"
+            android:layout_marginTop="12dp" />
+
+        <!-- Giá -->
+        <EditText
+            android:id="@+id/edtFoodPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Giá món (VNĐ)"
+            android:inputType="number"
+            android:layout_marginTop="12dp" />
+
+        <!-- Check là combo -->
+        <CheckBox
+            android:id="@+id/checkboxIsCombo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Là combo?"
+            android:layout_marginTop="12dp" />
+
+        <!-- Layout chứa các món thành phần combo -->
+        <LinearLayout
+            android:id="@+id/layoutComboItems"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn món trong combo:" />
+
+            <!-- Đây là nơi bạn sẽ thêm động các CheckBox -->
+            <LinearLayout
+                android:id="@+id/layoutComboCheckboxList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- Nút lưu -->
+        <Button
+            android:id="@+id/btnSaveFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lưu món ăn"
+            android:layout_marginTop="24dp" />
+    </LinearLayout>
+</ScrollView>
