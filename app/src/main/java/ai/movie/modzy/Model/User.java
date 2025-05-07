@@ -6,6 +6,7 @@ public class User {
     private String role;
     private String avatarUrl;
     private String avatarPublicId; // Thêm dòng này
+    private String id; // UID Firestore
 
     public User() {} // Required by Firestore
 
@@ -23,6 +24,9 @@ public class User {
     public String getAvatarUrl() { return avatarUrl; }
     public String getAvatarPublicId() { return avatarPublicId; } // Getter mới
 
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
     public void setRole(String role) { this.role = role; }

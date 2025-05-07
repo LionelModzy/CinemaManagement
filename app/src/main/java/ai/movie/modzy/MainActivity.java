@@ -34,6 +34,7 @@ import ai.movie.modzy.Activity.Movie.AddMovieActivity;
 import ai.movie.modzy.Adapter.MovieAdapter;
 import ai.movie.modzy.Fragment.FoodFragment;
 import ai.movie.modzy.Fragment.HomeFragment;
+import ai.movie.modzy.Fragment.ManageAccountFragment;
 import ai.movie.modzy.Fragment.MovieFragment;
 import ai.movie.modzy.Fragment.ProfileFragment;
 import ai.movie.modzy.Fragment.ScheduleFragment;
@@ -41,78 +42,7 @@ import ai.movie.modzy.Fragment.StatisticFragment;
 import ai.movie.modzy.Fragment.TicketFragment;
 import ai.movie.modzy.Model.Movies;
 
-//public class MainActivity extends AppCompatActivity {
-////    private RecyclerView recyclerView;
-////    private MovieAdapter adapter;
-////    private List<Movies> movieList;
-////    private FirebaseFirestore db;
-////    private Button BtnAddmovie;
-//    private DrawerLayout drawerLayout;
-//    private NavigationView navigationView;
-//    private BottomNavigationView bottomNavigationView;
-//    private Toolbar toolbar;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        recyclerView = findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        BtnAddmovie = findViewById(R.id.btnAddMovie);
-//        movieList = new ArrayList<>();
-//        String role = getIntent().getStringExtra("role");
-//        if (role != null && role.equals("user")) {
-//            BtnAddmovie.setVisibility(View.GONE);
-//        }
-//        adapter = new MovieAdapter(this, movieList, role); // Khởi tạo adapter sau khi có role
-//        recyclerView.setAdapter(adapter);
-//
-//        db = FirebaseFirestore.getInstance();
-//        loadMovies();
-//
-//        // Set up the OnClickListener for the Add Movie button
-//        BtnAddmovie.setOnClickListener(v -> {
-//            Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
-//            startActivityForResult(intent, 1); // Chú ý là phải truyền requestCode
-//        });
-//
-//        // Set the listener for movie click
-//        adapter.setOnMovieClickListener(new MovieAdapter.OnMovieClickListener() {
-//            @Override
-//            public void onMovieClick(Movies movie) {
-//                Intent intent = new Intent(MainActivity.this, AddMovieActivity.class);
-//                intent.putExtra("movie_id", movie.getId());  // Truyền movieId vào AddMovieActivity
-//                startActivityForResult(intent, 1);
-//            }
-//        });
-//
-//
-//    }
-//
-//    private void loadMovies() {
-//        db.collection("movies").get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                movieList.clear();
-//                for (QueryDocumentSnapshot document : task.getResult()) {
-//                    Movies movie = document.toObject(Movies.class);
-//                    movieList.add(movie);
-//                }
-//                adapter.notifyDataSetChanged();
-//            } else {
-//                Log.e("Firestore", "Error getting movies", task.getException());
-//            }
-//        });
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            loadMovies(); // Tải lại danh sách phim sau khi thêm phim mới
-//        }
-//    }
-//}
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -158,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (itemId == R.id.nav_schedules) {
                 loadFragment(new ScheduleFragment(), "Quản lí suất chiếu");
+            } else if (itemId == R.id.nav_account) {
+                if (role.equals("admin")) {
+                    loadFragment(new ManageAccountFragment(), "Quản lý tài khoản");
+                } else {
+                    Toast.makeText(this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                }
+
 
             } else if (itemId == R.id.nav_statistics) {
                 loadFragment(new StatisticFragment(), "Thống kê");
@@ -212,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         // Ẩn menu nếu không phải admin
         if (!role.equals("admin")) {
             navigationView.getMenu().findItem(R.id.nav_movie).setVisible(false);
-
+            navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_schedules).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_foods).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_statistics).setVisible(false); // nếu cần

@@ -107,6 +107,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             deleteButton = itemView.findViewById(R.id.btn_delete_movie);
         }
     }
+    public void updateList(List<Movies> newList) {
+        moviesList = newList;
+        notifyDataSetChanged();
+    }
+    public void appendList(List<Movies> moreMovies) {
+        int startPosition = this.moviesList.size();
+        this.moviesList.addAll(moreMovies);
+        notifyItemRangeInserted(startPosition, moreMovies.size());
+    }
+
 
 
     // Phương thức deleteMovie() cần sửa lại để nhận đúng kiểu dữ liệu

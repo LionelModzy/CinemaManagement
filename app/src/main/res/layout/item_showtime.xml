@@ -1,58 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    android:background="@color/material_dynamic_primary90"
-    android:orientation="horizontal"
-    android:weightSum="10"
-    android:padding="16dp">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_weight="2">
-    <TextView
-        android:id="@+id/tv_cinema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rạp: CGV Vincom"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_room"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phòng: 1" />
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thời gian: 20:30 - 12/04/2025" />
-</LinearLayout>
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/material_dynamic_primary90">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="8"
-        android:gravity="end">
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/btnEdit"
+        <TextView
+            android:id="@+id/tv_cinema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sửa"
-            android:visibility="gone" />
+            android:text="Rạp: CGV Vincom"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
 
-        <Button
-            android:id="@+id/btnDelete"
+        <TextView
+            android:id="@+id/tv_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xóa"
-            android:visibility="gone" />
+            android:text="Phòng: 1"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thời gian: 20:30 - 12/04/2025"
+            android:textColor="@android:color/black" />
     </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>
