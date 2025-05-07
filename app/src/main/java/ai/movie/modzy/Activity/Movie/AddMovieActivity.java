@@ -1,5 +1,6 @@
 package ai.movie.modzy.Activity.Movie;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,7 @@ public class AddMovieActivity extends AppCompatActivity {
         etCountry = findViewById(R.id.etCountry);
         etTmdbId = findViewById(R.id.etTmdbId);
         btnSave = findViewById(R.id.btnSave);
+        etReleaseDate.setOnClickListener(v -> showDatePickerDialog());
 
         // Kiểm tra nếu có movieId (chỉnh sửa phim)
         movieId = getIntent().getStringExtra("movie_id");
@@ -164,6 +167,22 @@ public class AddMovieActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Lỗi cập nhật phim!", Toast.LENGTH_SHORT).show());
     }
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Format lại ngày tháng về dạng YYYY-MM-DD
+                    String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
+                    etReleaseDate.setText(formattedDate);
+                }, year, month, day);
+
+        datePickerDialog.show();
+    }
+
 
 }
 

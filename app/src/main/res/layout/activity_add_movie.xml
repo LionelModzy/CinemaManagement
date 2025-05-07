@@ -1,27 +1,80 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="16dp">
+        android:padding="20dp"
+        android:layout_marginTop="20dp">
 
-        <EditText android:id="@+id/etTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tên phim"/>
-        <EditText android:id="@+id/etGenre" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Thể loại"/>
-        <EditText android:id="@+id/etDuration" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Thời lượng (phút)" android:inputType="number"/>
-        <EditText android:id="@+id/etPosterUrl" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="URL ảnh poster"/>
-        <EditText android:id="@+id/etDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Mô tả"/>
-        <EditText android:id="@+id/etRating" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Đánh giá" android:inputType="numberDecimal"/>
-        <EditText android:id="@+id/etReleaseDate" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ngày phát hành (YYYY-MM-DD)"/>
-        <EditText android:id="@+id/etTrailerUrl" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="URL trailer YouTube"/>
-        <EditText android:id="@+id/etAuthors" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Đạo diễn (cách nhau bởi dấu phẩy)"/>
-        <EditText android:id="@+id/etActors" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Diễn viên chính (cách nhau bởi dấu phẩy)"/>
-        <EditText android:id="@+id/etCountry" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Quốc gia"/>
-        <EditText android:id="@+id/etTmdbId" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="TMDb ID" android:inputType="number"/>
+        <!-- Tên phim -->
+        <TextView android:text="Tên phim:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etTitle" style="@style/StyledEditText" android:hint="Nhập tên phim" />
 
-        <Button android:id="@+id/btnSave" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Lưu phim"/>
+        <!-- Thể loại -->
+        <TextView android:text="Thể loại:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etGenre" style="@style/StyledEditText" android:hint="Nhập thể loại" />
+
+        <!-- Thời lượng -->
+        <TextView android:text="Thời lượng (phút):" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etDuration" style="@style/StyledEditText" android:hint="Nhập thời lượng" android:inputType="number" />
+
+        <!-- URL Poster -->
+        <TextView android:text="URL ảnh poster:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etPosterUrl" style="@style/StyledEditText" android:hint="Nhập URL poster" />
+
+        <!-- Mô tả -->
+        <TextView android:text="Mô tả:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etDescription" style="@style/StyledEditText" android:hint="Nhập mô tả" android:minLines="3" android:gravity="top" android:inputType="textMultiLine" />
+
+        <!-- Đánh giá -->
+        <TextView android:text="Đánh giá:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etRating" style="@style/StyledEditText" android:hint="Nhập đánh giá" android:inputType="numberDecimal" />
+
+        <!-- Ngày phát hành (Date Picker) -->
+        <TextView android:text="Ngày phát hành:" style="@style/LabelStyle" />
+        <EditText
+            android:id="@+id/etReleaseDate"
+            style="@style/StyledEditText"
+            android:hint="Chọn ngày phát hành"
+            android:focusable="false"
+            android:clickable="true" />
+
+        <!-- URL trailer -->
+        <TextView android:text="URL trailer YouTube:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etTrailerUrl" style="@style/StyledEditText" android:hint="Nhập URL trailer" />
+
+        <!-- Đạo diễn -->
+        <TextView android:text="Đạo diễn (phân cách bằng dấu phẩy):" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etAuthors" style="@style/StyledEditText" android:hint="Nhập tên đạo diễn" />
+
+        <!-- Diễn viên -->
+        <TextView android:text="Diễn viên chính (phân cách bằng dấu phẩy):" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etActors" style="@style/StyledEditText" android:hint="Nhập tên diễn viên" />
+
+        <!-- Quốc gia -->
+        <TextView android:text="Quốc gia:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etCountry" style="@style/StyledEditText" android:hint="Nhập quốc gia" />
+
+        <!-- TMDB ID -->
+        <TextView android:text="TMDb ID:" style="@style/LabelStyle" />
+        <EditText android:id="@+id/etTmdbId" style="@style/StyledEditText" android:hint="Nhập TMDb ID" android:inputType="number" />
+
+        <!-- Nút Lưu -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lưu phim"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
     </LinearLayout>
 </ScrollView>

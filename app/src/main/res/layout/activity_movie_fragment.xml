@@ -4,24 +4,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
-<!--    <Button-->
-<!--        android:id="@+id/btnLoadFromApi"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Load phim từ TMDb"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:visibility="gone"/> &lt;!&ndash; Mặc định ẩn &ndash;&gt;-->
 
-<!--    <Button-->
-<!--        android:id="@+id/btnAddMovie"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Thêm phim" />-->
+    <!-- Thanh tìm kiếm + Spinner sắp xếp -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:queryHint="Tìm phim..." />
+
+        <Spinner
+            android:id="@+id/spinnerSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/sort_options" />
+    </LinearLayout>
+
+    <!-- Spinner chọn tag -->
+    <Spinner
+        android:id="@+id/spinnerTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Danh sách phim -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:id="@+id/layoutPaginationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <!-- Phần phân trang chính -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/paginationLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="4dp">
+
+                <!-- Nút Trước -->
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Trước"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="48dp"
+                    android:textSize="14sp"/>
+
+                <!-- Các nút số trang sẽ được thêm động ở đây -->
+
+                <!-- Nút Sau -->
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Sau"
+                    android:layout_marginStart="8dp"
+                    android:minWidth="48dp"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Phần thông tin trang -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/txtPageInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trang 1/9"
+                android:textSize="14sp"/>
+
+            <EditText
+                android:id="@+id/editPage"
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:inputType="number"
+                android:hint="Trang"
+                android:layout_marginStart="12dp"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btnGoPage"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Đến"
+                android:layout_marginStart="8dp"
+                android:textSize="14sp"
+                android:minWidth="48dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
 
 </LinearLayout>

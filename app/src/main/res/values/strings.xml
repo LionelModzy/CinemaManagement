@@ -2,5 +2,11 @@
     <string name="app_name">CinemaManagement</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string-array name="sort_options">
+        <item>A-Z</item>
+        <item>Z-A</item>
+        <item>Mới nhất</item>
+        <item>Cũ nhất</item>
+    </string-array>
 
 </resources>

@@ -16,6 +16,7 @@ public class Movies {
     private List<String> actors;    // Diễn viên chính
     private String country;
     private int tmdbId;
+    private List<String> tags;
     // Constructor rỗng (Firestore yêu cầu)
     public Movies() {}
 
@@ -34,6 +35,7 @@ public class Movies {
         this.actors = actors;
         this.country = country;
         this.tmdbId = tmdbId;
+
     }
 
     // Getters
@@ -57,7 +59,13 @@ public class Movies {
     public void setTmdbId(int tmdbId) {
         this.tmdbId = tmdbId;
     }
+    public List<String> getTags() {
+        return tags;
+    }
 
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
     // Setters
     public void setId(int id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }

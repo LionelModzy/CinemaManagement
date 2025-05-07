@@ -3,67 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/gray_light">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="12dp">
 
+        <!-- Hình ảnh món ăn (bo góc) -->
         <ImageView
             android:id="@+id/foodImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_bg"
+            android:clipToOutline="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Tên món -->
         <TextView
             android:id="@+id/foodName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Tên món"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/foodImage"
-            app:layout_constraintStart_toEndOf="@+id/foodImage"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="12dp"
+            app:layout_constraintTop_toTopOf="@id/foodImage"
+            app:layout_constraintStart_toEndOf="@id/foodImage"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
-
+        <!-- Giá món -->
         <TextView
             android:id="@+id/foodPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Giá: 30000 VND"
+            android:text="Giá: 30.000 VND"
             android:textSize="14sp"
+            android:textColor="@android:color/background_dark"
+            android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/foodName"
             app:layout_constraintStart_toStartOf="@id/foodName"
-            app:layout_constraintEnd_toEndOf="@id/foodName"
-            android:layout_marginTop="4dp" />
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/btnEditFood"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:layout_height="32dp"-->
-<!--            android:src="@drawable/ic_add"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            android:contentDescription="Sửa"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/btnDeleteFood" />-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/btnDeleteFood"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:layout_height="32dp"-->
-<!--            android:src="@drawable/ic_logout"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            android:contentDescription="Xóa"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
+            app:layout_constraintEnd_toEndOf="@id/foodName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
