@@ -79,8 +79,10 @@ public class ChooseShowtimeActivity extends AppCompatActivity {
         }
         List<String> cinemaList = new ArrayList<>(cinemas);
         Collections.sort(cinemaList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cinemaList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, cinemaList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCinema.setAdapter(adapter);
+
 
         spinnerCinema.setOnItemSelectedListener(new SimpleItemSelectedListener() {
             @Override
@@ -100,7 +102,11 @@ public class ChooseShowtimeActivity extends AppCompatActivity {
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(dates));
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(dates));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, new ArrayList<>(dates));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerCinema.setAdapter(adapter);
+
         spinnerDate.setAdapter(adapter);
 
         spinnerDate.setOnItemSelectedListener(new SimpleItemSelectedListener() {
@@ -127,9 +133,11 @@ public class ChooseShowtimeActivity extends AppCompatActivity {
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, times);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, times);
+//
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, times);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTime.setAdapter(adapter);
-
         spinnerTime.setOnItemSelectedListener(new SimpleItemSelectedListener() {
             @Override
             public void onItemSelected(String selectedTime) {

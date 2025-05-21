@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -111,7 +112,7 @@ public class ShowtimeAdapter extends RecyclerView.Adapter<ShowtimeAdapter.Showti
 
     public static class ShowtimeViewHolder extends RecyclerView.ViewHolder {
         TextView tvCinema, tvRoom, tvTime;
-        Button btnEdit, btnDelete;
+        ImageView btnEdit, btnDelete;
         public ShowtimeViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCinema = itemView.findViewById(R.id.tv_cinema);

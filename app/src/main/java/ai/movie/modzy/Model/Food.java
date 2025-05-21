@@ -10,7 +10,7 @@ public class Food {
     private boolean combo;
     private List<String> comboItems;
     private String imagePublicId;
-
+    private boolean isSelected = false;
     public Food() {
         // Constructor rỗng cho Firestore
     }
@@ -36,6 +36,19 @@ public class Food {
         this.comboItems = comboItems;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Food food = (Food) obj;
+        return id != null && id.equals(food.getId()); // So sánh bằng ID
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     // Getters và Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -57,4 +70,11 @@ public class Food {
 
     public String getImagePublicId() { return imagePublicId; }
     public void setImagePublicId(String imagePublicId) { this.imagePublicId = imagePublicId; }
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

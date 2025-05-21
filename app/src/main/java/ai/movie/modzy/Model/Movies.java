@@ -1,5 +1,7 @@
 package ai.movie.modzy.Model;
 
+import com.google.firebase.firestore.PropertyName;
+
 import java.util.List;
 
 public class Movies {
@@ -16,6 +18,9 @@ public class Movies {
     private List<String> actors;    // Diễn viên chính
     private String country;
     private int tmdbId;
+    @PropertyName("MovieID")
+    private Long movieID;
+
     private List<String> tags;
     // Constructor rỗng (Firestore yêu cầu)
     public Movies() {}
@@ -37,6 +42,11 @@ public class Movies {
         this.tmdbId = tmdbId;
 
     }
+    @PropertyName("MovieID")
+    public Long getMovieID() { return movieID; }
+
+    @PropertyName("MovieID")
+    public void setMovieID(Long movieID) { this.movieID = movieID; }
 
     // Getters
     public int getId() { return id; }

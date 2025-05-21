@@ -31,6 +31,7 @@ import java.util.List;
 
 import ai.movie.modzy.Activity.Account.Login_Activity;
 import ai.movie.modzy.Activity.Movie.AddMovieActivity;
+import ai.movie.modzy.Activity.Ticket.ScanQRActivity;
 import ai.movie.modzy.Adapter.MovieAdapter;
 import ai.movie.modzy.Fragment.FoodFragment;
 import ai.movie.modzy.Fragment.HomeFragment;
@@ -98,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (itemId == R.id.nav_statistics) {
                 loadFragment(new StatisticFragment(), "Thống kê");
-            } else if (itemId == R.id.nav_foods) {
+            } else if (itemId == R.id.nav_ticketqr) {
+                Intent intent = new Intent(this, ScanQRActivity.class);
+                startActivity(intent);
+            }
+
+         else if (itemId == R.id.nav_foods) {
                 if (role.equals("admin")) {
                     loadFragment(new FoodFragment(), "Quản lý bắp nước");
                 } else {
@@ -151,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_movie).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_schedules).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_ticketqr).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_foods).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_statistics).setVisible(false); // nếu cần
         }

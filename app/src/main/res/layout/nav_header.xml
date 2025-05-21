@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="180dp"
     android:background="@color/design_default_color_primary"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/logocinema">
+
+    </ImageView>
     <TextView
         android:id="@+id/nav_header_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chào mừng!"
+        android:text="Chào mừng bạn đến với!"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nav_header_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rạp chiếu phim"
+        android:text="Ứng dụng quản lí rạp chiếu phim Modzy"
         android:textColor="@android:color/white" />
 </LinearLayout>

@@ -1,7 +1,9 @@
 package ai.movie.modzy.Fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -185,23 +187,23 @@ public class MovieFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager != null) {
-                    int visibleItemCount = layoutManager.getChildCount();
-                    int totalItemCount = layoutManager.getItemCount();
-                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                // Chỉ ẩn/hiện thanh phân trang nếu không phải trang cuối
+                if (currentPage < totalPages) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        int visibleItemCount = layoutManager.getChildCount();
+                        int totalItemCount = layoutManager.getItemCount();
+                        int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
-                    // Hiển thị phân trang khi cuộn gần đến cuối danh sách
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 1
-                            && firstVisibleItemPosition >= 0
-                            && totalItemCount >= itemsPerPage) {
-                        layoutPaginationContainer.setVisibility(View.VISIBLE);
-                        layoutPaginationContainer.animate().alpha(1f).setDuration(200);
-
-                    } else {
-                        layoutPaginationContainer.setVisibility(View.VISIBLE);
-                        layoutPaginationContainer.animate().alpha(1f).setDuration(200);
-
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 3
+                                && firstVisibleItemPosition >= 0
+                                && totalItemCount >= itemsPerPage) {
+                            layoutPaginationContainer.setVisibility(View.VISIBLE);
+                            layoutPaginationContainer.animate().alpha(1f).setDuration(200);
+                        } else {
+                            layoutPaginationContainer.setVisibility(View.GONE);
+                            layoutPaginationContainer.animate().alpha(0f).setDuration(200);
+                        }
                     }
                 }
             }
@@ -314,26 +316,25 @@ public class MovieFragment extends Fragment {
         adapter.updateList(pageList);
         updatePaginationButtons();
 
-        // Chỉ hiển thị phân trang nếu có nhiều hơn 1 trang
-//        if (totalPages > 1) {
-//            // Kiểm tra xem người dùng đã cuộn xuống cuối chưa
-//            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//            if (layoutManager != null) {
-//                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-//                if (lastVisiblePosition >= pageList.size() - 1) {
-//                    layoutPaginationContainer.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        } else {
+        // Luôn hiển thị phân trang nếu có nhiều hơn 1 trang
+        if (totalPages > 1) {
             layoutPaginationContainer.setVisibility(View.VISIBLE);
-
+        } else {
+            layoutPaginationContainer.setVisibility(View.GONE);
+        }
     }
 
 
 
     private void updatePaginationButtons() {
         txtPageInfo.setText(String.format("Trang %d/%d", currentPage, totalPages));
+        btnPrev.setEnabled(currentPage > 1);
+        btnNext.setEnabled(currentPage < totalPages);
 
+        // Hiển thị thông báo nếu là trang cuối
+        if (currentPage == totalPages && totalPages > 1) {
+            Toast.makeText(getContext(), "Đã đến trang cuối cùng", Toast.LENGTH_SHORT).show();
+        }
         // Xóa các nút trang cũ (giữ lại nút Prev và Next)
         int childCount = paginationLayout.getChildCount();
         for (int i = childCount - 1; i >= 0; i--) {
@@ -379,16 +380,22 @@ public class MovieFragment extends Fragment {
     }
 
     private void addPageButton(int pageNumber) {
-        Button pageButton = new Button(getContext());
+        Context context = getContext();
+        if (context == null) return; // tránh NullPointerException
+
+        Resources resources = context.getResources();
+        if (resources == null) return;
+
+        Button pageButton = new Button(context);
         pageButton.setText(String.valueOf(pageNumber));
 
         // Kích thước nút
         int buttonSize = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 36, getResources().getDisplayMetrics());
+                TypedValue.COMPLEX_UNIT_DIP, 36, resources.getDisplayMetrics());
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 buttonSize, // width
-                buttonSize // height
+                buttonSize  // height
         );
         params.setMargins(4, 0, 4, 0);
         pageButton.setLayoutParams(params);
@@ -408,14 +415,21 @@ public class MovieFragment extends Fragment {
         });
 
         // Thêm nút vào trước nút "Sau"
-        int insertPosition = paginationLayout.indexOfChild(btnNext);
-        paginationLayout.addView(pageButton, insertPosition);
+        if (paginationLayout != null && btnNext != null) {
+            int insertPosition = paginationLayout.indexOfChild(btnNext);
+            paginationLayout.addView(pageButton, insertPosition);
+        }
     }
 
+
     private void addDotsTextView() {
-        TextView dots = new TextView(getContext());
+        Context context = getContext();
+        if (context == null) return; // Tránh crash khi context null
+
+        TextView dots = new TextView(context);
         dots.setText("...");
-        dots.setTextSize(14);
+        dots.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -423,10 +437,12 @@ public class MovieFragment extends Fragment {
         params.setMargins(4, 0, 4, 0);
         dots.setLayoutParams(params);
 
-        // Thêm vào trước nút "Sau"
-        int insertPosition = paginationLayout.indexOfChild(btnNext);
-        paginationLayout.addView(dots, insertPosition);
+        if (paginationLayout != null && btnNext != null) {
+            int insertPosition = paginationLayout.indexOfChild(btnNext);
+            paginationLayout.addView(dots, insertPosition);
+        }
     }
+
 
 
 

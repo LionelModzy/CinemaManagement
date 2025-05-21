@@ -1,5 +1,6 @@
 <!-- res/menu/drawer_menu.xml -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/midnight_blue">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_movie"
@@ -12,7 +13,11 @@
         <item
             android:id="@+id/nav_foods"
             android:title="Quản lý bắp nước"
-            android:icon="@drawable/ic_schedule" />
+            android:icon="@drawable/ic_food" />
+        <item
+            android:id="@+id/nav_ticketqr"
+            android:title="Quét mã đặt vé"
+            android:icon="@drawable/ic_ticket" />
         <item
             android:id="@+id/nav_statistics"
             android:title="Thống kê"

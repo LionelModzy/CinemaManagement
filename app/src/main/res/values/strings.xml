@@ -8,5 +8,6 @@
         <item>Mới nhất</item>
         <item>Cũ nhất</item>
     </string-array>
-
+    <string name="genre_title">Phim thể loại: %s</string>
+    <string name="movie_poster">Poster phim</string>
 </resources>

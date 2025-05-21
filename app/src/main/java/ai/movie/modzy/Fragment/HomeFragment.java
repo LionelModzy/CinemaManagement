@@ -1,6 +1,7 @@
 // HomeFragment.java
 package ai.movie.modzy.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.PopupMenu;
 
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -27,8 +30,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import ai.movie.modzy.Activity.Movie.GenreMoviesActivity;
+import ai.movie.modzy.Adapter.GenreMovieAdapter;
 import ai.movie.modzy.Adapter.MovieGridAdapter;
 import ai.movie.modzy.Adapter.MovieSliderAdapter;
 import ai.movie.modzy.Model.Movies;
@@ -51,7 +58,9 @@ public class HomeFragment extends Fragment {
 
     private List<Movies> allMoviesList = new ArrayList<>();
     private List<Movies> hotMoviesList = new ArrayList<>();
-
+    // Thêm các biến mới
+    private LinearLayout genreContainer;
+    private Map<String, List<Movies>> moviesByGenre = new HashMap<>();
     public HomeFragment() {}
 
     @Nullable
@@ -66,7 +75,7 @@ public class HomeFragment extends Fragment {
         searchHotMovies = view.findViewById(R.id.search_hot_movies);
         filterMenu      = view.findViewById(R.id.search_movies);
         recyclerMovies  = view.findViewById(R.id.recycler_movies);
-
+        genreContainer = view.findViewById(R.id.genre_container);
         db = FirebaseFirestore.getInstance();
 
         setupSlider();
@@ -76,7 +85,7 @@ public class HomeFragment extends Fragment {
         startAutoSlide();
         setupSearch();
         setupFilterMenu();
-
+        loadMoviesByGenre();
         return view;
     }
 
@@ -190,7 +199,74 @@ public class HomeFragment extends Fragment {
                 })
                 .addOnFailureListener(e -> Log.e("HomeFragment", "Error all", e));
     }
+    private void loadMoviesByGenre() {
+        db.collection("movies")
+                .get()
+                .addOnSuccessListener(snap -> {
+                    allMoviesList.clear();
+                    moviesByGenre.clear();
 
+                    for (QueryDocumentSnapshot doc : snap) {
+                        Movies movie = doc.toObject(Movies.class);
+                        allMoviesList.add(movie);
+
+                        // Phân loại phim theo thể loại
+                        String[] genres = movie.getGenre().split(", ");
+                        for (String genre : genres) {
+                            if (!moviesByGenre.containsKey(genre)) {
+                                moviesByGenre.put(genre, new ArrayList<>());
+                            }
+                            moviesByGenre.get(genre).add(movie);
+                        }
+                    }
+
+                    // Hiển thị các thể loại
+                    displayGenreSections();
+
+                    // Cập nhật grid adapter
+                    gridAdapter.setMovieList(new ArrayList<>(allMoviesList));
+                })
+                .addOnFailureListener(e -> Log.e("HomeFragment", "Error loading movies by genre", e));
+    }
+
+    private void displayGenreSections() {
+        genreContainer.removeAllViews();
+
+        for (Map.Entry<String, List<Movies>> entry : moviesByGenre.entrySet()) {
+            if (entry.getValue().size() > 0) {
+                View genreView = LayoutInflater.from(requireContext())
+                        .inflate(R.layout.section_genre_movies, genreContainer, false);
+
+                TextView genreTitle = genreView.findViewById(R.id.tv_genre_title);
+                TextView viewAll = genreView.findViewById(R.id.tv_view_all);
+                RecyclerView recyclerGenreMovies = genreView.findViewById(R.id.recycler_genre_movies);
+
+                String genre = entry.getKey();
+                genreTitle.setText(genre);
+
+                // Setup RecyclerView ngang
+                recyclerGenreMovies.setLayoutManager(new LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                ));
+                recyclerGenreMovies.setAdapter(new GenreMovieAdapter(
+                        requireContext(),
+                        entry.getValue(),
+                        genre
+                ));
+
+                // Xử lý click "Xem tất cả"
+                viewAll.setOnClickListener(v -> {
+                    Intent intent = new Intent(requireContext(), GenreMoviesActivity.class);
+                    intent.putExtra("genre", genre);
+                    startActivity(intent);
+                });
+
+                genreContainer.addView(genreView);
+            }
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

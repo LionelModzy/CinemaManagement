@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_8"
     tools:context=".Fragment.FoodFragment">
 
     <!-- Danh sách món ăn -->
@@ -25,8 +26,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="Thêm món ăn"
         app:srcCompat="@android:drawable/ic_input_add"
-    app:backgroundTint="@color/colorPrimary"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_margin="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/blue_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        android:layout_margin="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

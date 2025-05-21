@@ -32,11 +32,12 @@
 
         <TextView
             android:id="@+id/movie_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Movie Title"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginBottom="40dp"
             android:textColor="@android:color/black"/>
 
         <TextView
@@ -82,20 +83,29 @@
     </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_delete_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Xóa" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="8dp">
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_edit_movie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sửa" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_edit"
+                android:contentDescription="Edit"
+                app:tint="@color/blue_secondary"
+                 />
+
+            <ImageView
+                android:id="@+id/btn_delete_movie"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_delete"
+                android:contentDescription="Delete"
+                app:tint="@color/red_error" />
         </LinearLayout>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

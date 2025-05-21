@@ -94,8 +94,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         TextView title, genre, rating, duration;
-        ImageView poster;
-        Button  editButton, deleteButton;
+        ImageView poster,editButton, deleteButton;;
+//        Button  editButton, deleteButton;
         public MovieViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.movie_title);
